@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="sv">
+<head><meta charset="utf-8">
+<title>Sefast · mobil</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F7F5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sefast">
+</head><body>
+
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
+<style>
+
+body{margin:0;background:#F6F7F5}
+html{background:#F6F7F5;-webkit-tap-highlight-color:transparent}
+.sf-scroll{scrollbar-width:none}
+.sf-scroll::-webkit-scrollbar{display:none}
+@keyframes sfIn{from{opacity:0}to{opacity:1}}
+.sf-in{animation:sfIn .16s ease backwards}
+@keyframes sfPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.sf-pop{animation:sfPop .22s cubic-bezier(.2,.7,.2,1) both}
+@keyframes sfFade{from{opacity:0}to{opacity:1}}
+.sf-fade{animation:sfFade .2s ease both}
+@keyframes sfSheet{from{transform:translateY(100%)}to{transform:none}}
+.sf-sheet{animation:sfSheet .32s cubic-bezier(.2,.8,.2,1) both}
+.sf-tap{transition:background-color .15s ease, transform .1s ease}
+.sf-tap:active{transform:scale(.98)}
+.sf-step{transition:background-color .15s ease}
+.sf-step:active{background-color:#D3E2DA !important}
+@media (prefers-reduced-motion: reduce){.sf-in,.sf-pop,.sf-sheet,.sf-fade{animation:none}}
+a{color:#315046}
+input::placeholder{color:#8A938F}
+
+
+body{margin:0;background:#F6F7F5}
+html{background:#F6F7F5;-webkit-tap-highlight-color:transparent}
+.sf-scroll{scrollbar-width:none}
+.sf-scroll::-webkit-scrollbar{display:none}
+@keyframes sfIn{from{opacity:0}to{opacity:1}}
+.sf-in{animation:sfIn .16s ease backwards}
+@keyframes sfPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.sf-pop{animation:sfPop .22s cubic-bezier(.2,.7,.2,1) both}
+@keyframes sfFade{from{opacity:0}to{opacity:1}}
+.sf-fade{animation:sfFade .2s ease both}
+@keyframes sfSheet{from{transform:translateY(100%)}to{transform:none}}
+.sf-sheet{animation:sfSheet .32s cubic-bezier(.2,.8,.2,1) both}
+.sf-tap{transition:background-color .15s ease, transform .1s ease}
+.sf-tap:active{transform:scale(.98)}
+.sf-step{transition:background-color .15s ease}
+.sf-step:active{background-color:#D3E2DA !important}
+@media (prefers-reduced-motion: reduce){.sf-in,.sf-pop,.sf-sheet,.sf-fade{animation:none}}
+a{color:#315046}
+input::placeholder{color:#8A938F}
+
+
+body{margin:0;background:#F6F7F5}
+html{background:#F6F7F5;-webkit-tap-highlight-color:transparent}
+.sf-scroll{scrollbar-width:none}
+.sf-scroll::-webkit-scrollbar{display:none}
+@keyframes sfIn{from{opacity:0}to{opacity:1}}
+.sf-in{animation:sfIn .16s ease backwards}
+@keyframes sfPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.sf-pop{animation:sfPop .22s cubic-bezier(.2,.7,.2,1) both}
+@keyframes sfFade{from{opacity:0}to{opacity:1}}
+.sf-fade{animation:sfFade .2s ease both}
+@keyframes sfSheet{from{transform:translateY(100%)}to{transform:none}}
+.sf-sheet{animation:sfSheet .32s cubic-bezier(.2,.8,.2,1) both}
+.sf-tap{transition:background-color .15s ease, transform .1s ease}
+.sf-tap:active{transform:scale(.98)}
+.sf-step{transition:background-color .15s ease}
+.sf-step:active{background-color:#D3E2DA !important}
+@media (prefers-reduced-motion: reduce){.sf-in,.sf-pop,.sf-sheet,.sf-fade{animation:none}}
+a{color:#315046}
+input::placeholder{color:#8A938F}
+
+</style>
+
+<style>html,body{margin:0;background:#DCE1DD}</style>
+<template id="sf-tpl">
+<sc-if value="{{is_hem}}" hint-placeholder-val="{{ true }}">
+
+<div style="min-height: 100vh; box-sizing: border-box; background: #F6F7F5; font-family: Lato, 'Helvetica Neue', sans-serif; color: #1E2B27; font-variant-numeric: tabular-nums; font-size: 15px; line-height: 21px">
+<div style="position: relative; width: 100%; height: 100vh; height: 100dvh">
+<div class="sf-screen" style="position: relative; width: 100%; height: 100%; overflow: hidden; background: #F6F7F5; transform: translateZ(0)">
+<div class="sf-scroll" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow-y: auto; box-sizing: border-box; padding: calc(env(safe-area-inset-top, 0px) + 12px) 0 110px">
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 6px 20px 14px">
+<img src="data:image/png;base64,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" alt="Sefast" style="width: 98px; height: auto">
+<span style="display: flex; align-items: center; gap: 8px">
+<span aria-label="Anna Lind" style="width: 44px; height: 44px; border-radius: 22px; background: #315046; color: #FFFFFF; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; justify-content: center">AL</span>
+</span>
+</header>
+
+<main style="display: flex; flex-direction: column; gap: 16px; padding: 0 16px">
+
+<section class="sf-in" aria-labelledby="hero" style="position: relative; overflow: hidden; padding: 22px 20px 20px; border-radius: 26px; background: #315046; color: #FFFFFF; display: flex; flex-direction: column; gap: 18px">
+<svg width="260" height="286" viewBox="0 0 100 110" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: -70px; top: -50px; opacity: 0.07"><path d="M50 6 92 30v50L50 104 8 80V30z"></path><path d="M32 82V52l18-14 18 14v30"></path><rect x="46" y="51" width="8" height="8" rx="2" fill="#FFFFFF" stroke="none"></rect><rect x="46" y="62" width="8" height="20" rx="2" fill="#FFFFFF" stroke="none"></rect></svg>
+<div style="position: relative; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; color: rgba(255,255,255,0.8)">Måndag 5 oktober · vecka 41</span>
+<h1 id="hero" style="margin: 0; font-size: 30px; line-height: 36px; font-weight: 900; letter-spacing: -0.01em">God morgon, Anna</h1>
+</div>
+<div style="position: relative; padding: 16px; border-radius: 18px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
+<span style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8)">Rapporterat denna vecka</span>
+<span style="font-size: 13px; color: rgba(255,255,255,0.8)">mål 38 h</span>
+</div>
+<span style="font-size: 38px; line-height: 42px; font-weight: 300; letter-spacing: -0.02em">{{pg_hem.repTot}}<span style="font-size: 20px"> h</span></span>
+<span style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px">
+<sc-for list="{{pg_hem.dagar}}" as="d" hint-placeholder-count="5">
+<span style="display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 0; border-radius: 10px; background: {{d.bg}}; border: {{d.border}}; font-size: 11px; line-height: 14px"><b>{{d.dag}}</b><span style="color: rgba(255,255,255,0.85)">{{d.h}}</span></span>
+</sc-for>
+</span>
+</div>
+<a href="P-Mobil-Tid.dc.html" class="sf-tap" style="position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border-radius: 26px; background: #AE5E38; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Rapportera tid</a>
+</section>
+
+<div class="sf-in" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+<a href="P-Mobil-Projekt.dc.html" class="sf-tap" style="padding: 16px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); color: #1E2B27; text-decoration: none; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; font-weight: 700; color: #5B6763">Mina uppdrag</span>
+<span style="font-size: 34px; line-height: 40px; font-weight: 300">5</span>
+<span style="font-size: 12px; line-height: 17px; color: #5B6763">3 pågående · 1 kalkyl · 1 offererad</span>
+</a>
+<a href="P-Mobil-Projekt.dc.html" class="sf-tap" style="padding: 16px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); color: #1E2B27; text-decoration: none; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; font-weight: 700; color: #5B6763">Mina uppgifter</span>
+<span style="font-size: 34px; line-height: 40px; font-weight: 300">8</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 17px; color: #7A3A1C"><span style="width: 7px; height: 7px; border-radius: 4px; background: #9A2F1F"></span>1 över kalkyl · 2 nära</span>
+</a>
+</div>
+
+<section class="sf-in" aria-labelledby="act" style="padding: 16px 16px 6px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px">
+<h2 id="act" style="margin: 0; font-size: 17px; line-height: 24px; font-weight: 700">Behöver dig</h2>
+<span style="min-width: 24px; height: 24px; padding: 0 8px; box-sizing: border-box; border-radius: 12px; background: {{pg_hem.actBadgeBg}}; color: #FFFFFF; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center">{{pg_hem.actCount}}</span>
+</div>
+<sc-for list="{{pg_hem.actions}}" as="a" hint-placeholder-count="4">
+<div style="display: flex; align-items: center; gap: 12px; min-height: 60px; border-top: 1px solid #F0F1EE">
+<span style="width: 8px; height: 8px; flex: none; border-radius: 4px; background: {{a.dot}}"></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 13px; line-height: 18px; padding: 10px 0"><b style="font-size: 15px; line-height: 20px">{{a.title}}</b><span style="color: #5B6763">{{a.sub}}</span></span>
+<sc-if value="{{a.isLink}}" hint-placeholder-val="{{ true }}"><a href="{{a.href}}" onClick="{{a.go}}" aria-label="{{a.title}}" style="flex: none; width: 40px; height: 40px; border-radius: 20px; background: #F1F3F0; color: #315046; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></a></sc-if>
+<sc-if value="{{a.isBtn}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{a.onDo}}" class="sf-step" style="flex: none; min-height: 36px; padding: 0 12px; border: 0; border-radius: 18px; background: #E3ECE7; color: #24403A; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">{{a.cta}}</button></sc-if>
+</div>
+</sc-for>
+<sc-if value="{{pg_hem.noActions}}" hint-placeholder-val="{{ false }}"><div style="padding: 18px 0 14px; border-top: 1px solid #F0F1EE; text-align: center; color: #5B6763; font-size: 14px"><b style="color: #315046">Allt är gjort.</b> Inget väntar på dig.</div></sc-if>
+</section>
+
+<section class="sf-in" aria-labelledby="proj" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 4px 4px 0">
+<h2 id="proj" style="margin: 0; font-size: 17px; line-height: 24px; font-weight: 700">Pågående uppdrag</h2>
+<a href="P-Mobil-Projekt.dc.html" style="font-size: 14px; font-weight: 700">Alla mina →</a>
+</div>
+<sc-for list="{{pg_hem.projekt}}" as="p" hint-placeholder-count="3">
+<a href="P-Mobil-Projekt.dc.html" onClick="{{p.go}}" class="sf-tap" style="padding: 14px 16px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); color: #1E2B27; text-decoration: none; display: flex; flex-direction: column; gap: 8px">
+<span style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px"><span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 12px; font-weight: 700; color: #315046">{{p.nr}}</span><b style="font-size: 15px; line-height: 20px">{{p.namn}}</b><span style="font-size: 13px; line-height: 18px; color: #5B6763">{{p.kund}}</span></span><span style="flex: none; font-size: 12px; color: #5B6763; text-align: right">Slut<br><b style="color: #1E2B27; font-size: 13px">{{p.slut}}</b></span></span>
+<span style="display: flex; align-items: center; gap: 10px"><span style="flex: 1; height: 6px; border-radius: 3px; background: #ECEEEB; overflow: hidden"><span style="display: block; height: 6px; border-radius: 3px; width: {{p.barW}}; background: {{p.color}}"></span></span><b style="font-size: 13px; color: {{p.color}}; min-width: 44px; text-align: right">{{p.pct}}</b></span>
+</a>
+</sc-for>
+</section>
+</main>
+</div>
+<nav aria-label="Huvudmeny" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(3, 1fr); padding: 8px 14px max(env(safe-area-inset-bottom, 0px), 18px); background: rgba(255,255,255,0.96); border-top: 1px solid #E6E9E5; box-shadow: 0 -6px 20px rgba(30,43,39,0.05)">
+<a href="#" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #315046; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: #E3ECE7"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg></span>Hem</a>
+<a href="P-Mobil-Tid.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #6B726E; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: transparent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span style="position: absolute; top: -2px; right: -4px; width: 9px; height: 9px; border-radius: 5px; background: #AE5E38; border: 2px solid #FFFFFF"></span></span>Tid</a>
+<a href="P-Mobil-Projekt.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #6B726E; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: transparent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>Uppdrag</a>
+</nav>
+<sc-if value="{{pg_hem.toastOn}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 16px; right: 16px; bottom: {{pg_hem.toastBottom}}; z-index: 40; display: flex; justify-content: center; pointer-events: none">
+<div role="status" class="sf-pop" style="pointer-events: auto; display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 18px; border-radius: 20px; background: #1E2B27; color: #FFFFFF; font-size: 14px; box-shadow: 0 12px 30px rgba(20,32,28,0.3)">
+<span>{{pg_hem.toastText}}</span>
+<button type="button" onClick="{{pg_hem.undo}}" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: rgba(255,255,255,0.14); color: #FFFFFF; font: inherit; font-weight: 700; cursor: pointer">Ångra</button>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+
+</sc-if>
+<sc-if value="{{is_tid}}" hint-placeholder-val="{{ false }}">
+
+<div style="min-height: 100vh; box-sizing: border-box; background: #F6F7F5; font-family: Lato, 'Helvetica Neue', sans-serif; color: #1E2B27; font-variant-numeric: tabular-nums; font-size: 15px; line-height: 21px">
+<div style="position: relative; width: 100%; height: 100vh; height: 100dvh">
+<div class="sf-screen" style="position: relative; width: 100%; height: 100%; overflow: hidden; background: #F6F7F5; transform: translateZ(0)">
+<div class="sf-scroll" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow-y: auto; box-sizing: border-box; padding: calc(env(safe-area-inset-top, 0px) + 12px) 0 190px">
+<header style="display: flex; flex-direction: column; gap: 14px; padding: 6px 20px 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<h1 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 900; letter-spacing: -0.01em">Tidrapport</h1>
+<span style="padding: 4px 12px; border-radius: 12px; background: {{pg_tid.stBg}}; color: {{pg_tid.stFg}}; font-size: 12px; font-weight: 700">{{pg_tid.stLabel}}</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<button type="button" aria-label="Föregående vecka" onClick="{{pg_tid.prevWeek}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: #FFFFFF; color: {{pg_tid.prevColor}}; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(30,43,39,0.06); cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 2px"><span style="padding: 3px 14px; border-radius: 12px; background: {{pg_tid.wkBg}}; color: {{pg_tid.wkFg}}; font-size: 14px; font-weight: 700">{{pg_tid.weekLabel}}</span><span style="font-size: 12px; color: #5B6763">{{pg_tid.weekRange}}</span></span>
+<button type="button" aria-label="Nästa vecka" onClick="{{pg_tid.nextWeek}}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: #FFFFFF; color: {{pg_tid.nextColor}}; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 2px rgba(30,43,39,0.06); cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+</div>
+<div role="tablist" aria-label="Välj dag" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px">
+<sc-for list="{{pg_tid.days}}" as="d" hint-placeholder-count="5">
+<button type="button" role="tab" aria-selected="{{d.sel}}" onClick="{{d.pick}}" class="sf-tap" style="display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 9px; border: {{d.border}}; border-radius: 16px; background: {{d.bg}}; color: {{d.fg}}; font: inherit; cursor: pointer">
+<span style="font-size: 12px; font-weight: 700; opacity: 0.85">{{d.dag}}</span>
+<span style="font-size: 18px; line-height: 22px; font-weight: 900">{{d.datum}}</span>
+<span style="font-size: 12px; font-weight: 700; color: {{d.hColor}}">{{d.h}}</span>
+</button>
+</sc-for>
+</div>
+</header>
+
+<main style="display: flex; flex-direction: column; gap: 12px; padding: 0 16px">
+
+<section aria-label="Dagens summa" style="padding: 14px 16px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px">
+<b style="font-size: 15px">{{pg_tid.dayTitle}}</b>
+<span style="font-size: 14px; color: #5B6763"><b style="font-size: 18px; color: {{pg_tid.dayColor}}">{{pg_tid.dayTotal}}</b> av 7,6 h</span>
+</div>
+<span style="height: 8px; border-radius: 4px; background: #ECEEEB; overflow: hidden"><span style="display: block; height: 8px; border-radius: 4px; width: {{pg_tid.dayBarW}}; background: {{pg_tid.dayColor}}; transition: width .25s ease"></span></span>
+<sc-if value="{{pg_tid.showCopy}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{pg_tid.copyPrev}}" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px; margin-top: 2px; border: 1px solid #D9DDD8; border-radius: 17px; background: #FFFFFF; color: #33403C; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>{{pg_tid.copyLabel}}</button></sc-if>
+</section>
+
+<sc-for list="{{pg_tid.projects}}" as="p" hint-placeholder-count="5">
+<section style="background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); overflow: hidden">
+<button type="button" aria-expanded="{{p.exp}}" onClick="{{p.toggle}}" style="display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border: 0; background: transparent; font: inherit; color: inherit; text-align: left; cursor: pointer">
+<span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: {{p.chipBg}}; color: {{p.chipFg}}; font-size: 13px; font-weight: 900; display: inline-flex; align-items: center; justify-content: center">{{p.short}}</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><b style="font-size: 15px; line-height: 20px">{{p.namn}}</b><span style="font-size: 13px; line-height: 18px; color: #5B6763; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.kund}}</span></span>
+<span style="flex: none; padding: 3px 10px; border-radius: 11px; background: {{p.hBg}}; color: {{p.hFg}}; font-size: 13px; font-weight: 700">{{p.dayH}}</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5B6763" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; transform: rotate({{p.rot}}); transition: transform .2s ease"><path d="m6 9 6 6 6-6"></path></svg>
+</button>
+<sc-if value="{{p.expanded}}" hint-placeholder-val="{{ true }}">
+<div class="sf-fade" style="display: flex; flex-direction: column; padding: 0 16px 6px">
+<sc-for list="{{p.upp}}" as="u" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 66px; border-top: 1px solid #F0F1EE">
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 12px; line-height: 17px"><b style="font-size: 15px; line-height: 20px">{{u.namn}}</b><span style="color: #5B6763">{{u.modell}}</span><span style="color: {{u.kColor}}; font-weight: 700">{{u.kText}}</span></span>
+<sc-if value="{{u.open}}" hint-placeholder-val="{{ true }}">
+<span style="flex: none; display: inline-flex; align-items: center; gap: 4px; padding: 3px; border-radius: 24px; background: #F1F3F0">
+<button type="button" aria-label="{{u.minusLabel}}" onClick="{{u.minus}}" class="sf-step" style="width: 40px; height: 40px; border: 0; border-radius: 20px; background: #FFFFFF; color: #1E2B27; font: inherit; font-size: 22px; line-height: 1; cursor: pointer; box-shadow: 0 1px 2px rgba(30,43,39,0.08)">−</button>
+<span aria-live="polite" style="min-width: 46px; text-align: center; font-size: 16px; font-weight: 700; color: {{u.valColor}}">{{u.val}}</span>
+<button type="button" aria-label="{{u.plusLabel}}" onClick="{{u.plus}}" class="sf-step" style="width: 40px; height: 40px; border: 0; border-radius: 20px; background: #315046; color: #FFFFFF; font: inherit; font-size: 22px; line-height: 1; cursor: pointer">+</button>
+</span>
+</sc-if>
+<sc-if value="{{u.locked}}" hint-placeholder-val="{{ false }}"><span style="flex: none; min-width: 60px; text-align: right; font-size: 16px; font-weight: 700; color: #33403C">{{u.val}}</span></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</section>
+</sc-for>
+
+<sc-if value="{{pg_tid.canAdd}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{pg_tid.addProj}}" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border: 1.5px dashed #C9CFC9; border-radius: 22px; background: transparent; color: #315046; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Annat uppdrag</button>
+</sc-if>
+</main>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: calc(72px + max(env(safe-area-inset-bottom, 0px), 18px)); z-index: 25; padding: 10px 16px; background: linear-gradient(rgba(246,247,245,0), #F6F7F5 30%)">
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 18px; border-radius: 24px; background: #FFFFFF; box-shadow: 0 2px 6px rgba(20,32,28,0.06), 0 12px 30px rgba(20,32,28,0.12)">
+<span style="flex: 1; display: flex; flex-direction: column; font-size: 12px; line-height: 16px; color: #5B6763"><span>{{pg_tid.weekLabel}}</span><span style="font-size: 13px"><b style="font-size: 17px; color: #1E2B27">{{pg_tid.weekTotal}}</b> av 38 h</span></span>
+<button type="button" onClick="{{pg_tid.onSubmit}}" style="min-height: 46px; padding: 0 20px; border: 0; border-radius: 23px; background: {{pg_tid.subBg}}; color: {{pg_tid.subFg}}; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer">{{pg_tid.subLabel}}</button>
+</div>
+</div>
+<nav aria-label="Huvudmeny" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(3, 1fr); padding: 8px 14px max(env(safe-area-inset-bottom, 0px), 18px); background: rgba(255,255,255,0.96); border-top: 1px solid #E6E9E5; box-shadow: 0 -6px 20px rgba(30,43,39,0.05)">
+<a href="P-Mobil-Hem.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #6B726E; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: transparent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg></span>Hem</a>
+<a href="#" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #315046; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: #E3ECE7"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span style="position: absolute; top: -2px; right: -4px; width: 9px; height: 9px; border-radius: 5px; background: #AE5E38; border: 2px solid #FFFFFF"></span></span>Tid</a>
+<a href="P-Mobil-Projekt.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #6B726E; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: transparent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>Uppdrag</a>
+</nav>
+<sc-if value="{{pg_tid.toastOn}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 16px; right: 16px; bottom: {{pg_tid.toastBottom}}; z-index: 40; display: flex; justify-content: center; pointer-events: none">
+<div role="status" class="sf-pop" style="pointer-events: auto; display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 18px; border-radius: 20px; background: #1E2B27; color: #FFFFFF; font-size: 14px; box-shadow: 0 12px 30px rgba(20,32,28,0.3)">
+<span>{{pg_tid.toastText}}</span>
+<button type="button" onClick="{{pg_tid.undo}}" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: rgba(255,255,255,0.14); color: #FFFFFF; font: inherit; font-weight: 700; cursor: pointer">Ångra</button>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+
+</sc-if>
+<sc-if value="{{is_mprojekt}}" hint-placeholder-val="{{ false }}">
+
+<div style="min-height: 100vh; box-sizing: border-box; background: #F6F7F5; font-family: Lato, 'Helvetica Neue', sans-serif; color: #1E2B27; font-variant-numeric: tabular-nums; font-size: 15px; line-height: 21px">
+<div style="position: relative; width: 100%; height: 100vh; height: 100dvh">
+<div class="sf-screen" style="position: relative; width: 100%; height: 100%; overflow: hidden; background: #F6F7F5; transform: translateZ(0)">
+<div class="sf-scroll" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow-y: auto; box-sizing: border-box; padding: calc(env(safe-area-inset-top, 0px) + 12px) 0 110px">
+<header style="display: flex; flex-direction: column; gap: 12px; padding: 6px 20px 14px">
+<h1 style="margin: 0; font-size: 28px; line-height: 34px; font-weight: 900; letter-spacing: -0.01em">Uppdrag</h1>
+<div role="tablist" aria-label="Visa uppdrag" style="display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 22px; background: #ECEEEB">
+<button type="button" role="tab" aria-selected="{{pg_mprojekt.minaSel}}" onClick="{{pg_mprojekt.pickMina}}" style="min-height: 38px; border: 0; border-radius: 18px; background: {{pg_mprojekt.minaBg}}; box-shadow: {{pg_mprojekt.minaSh}}; color: #1E2B27; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Mina uppdrag <span style="color: #5B6763">{{pg_mprojekt.minaCount}}</span></button>
+<button type="button" role="tab" aria-selected="{{pg_mprojekt.allaSel}}" onClick="{{pg_mprojekt.pickAlla}}" style="min-height: 38px; border: 0; border-radius: 18px; background: {{pg_mprojekt.allaBg}}; box-shadow: {{pg_mprojekt.allaSh}}; color: #1E2B27; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Alla uppdrag <span style="color: #5B6763">{{pg_mprojekt.allaCount}}</span></button>
+</div>
+<label style="display: flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 16px; border-radius: 23px; background: #FFFFFF; color: #5B6763; box-shadow: 0 1px 2px rgba(30,43,39,0.06)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Sök uppdrag</span><input type="search" value="{{pg_mprojekt.q}}" onChange="{{pg_mprojekt.onSearch}}" placeholder="Nr, kund eller adress" style="flex: 1; min-width: 0; border: 0; outline: none; font: inherit; font-size: 16px; background: transparent; color: #1E2B27"></label>
+</header>
+
+<main style="display: flex; flex-direction: column; gap: 10px; padding: 0 16px">
+<sc-for list="{{pg_mprojekt.groups}}" as="g" hint-placeholder-count="2">
+<h2 style="margin: 8px 4px 0; font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #5B6763">{{g.label}}</h2>
+<sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
+<button type="button" onClick="{{p.open}}" class="sf-tap" style="display: flex; flex-direction: column; gap: 10px; width: 100%; padding: 14px 16px; border: 0; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); font: inherit; color: inherit; text-align: left; cursor: pointer">
+<span style="display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%"><span style="font-size: 12px; font-weight: 700; color: #315046">{{p.nr}}</span><span style="padding: 2px 10px; border-radius: 10px; background: {{p.pillBg}}; color: {{p.pillFg}}; font-size: 12px; font-weight: 700">{{p.status}}</span></span>
+<span style="display: flex; flex-direction: column; margin-top: -6px"><b style="font-size: 16px; line-height: 21px">{{p.namn}}</b><span style="font-size: 13px; line-height: 18px; color: #5B6763">{{p.kund}} · {{p.ort}}</span></span>
+<sc-if value="{{p.hasBar}}" hint-placeholder-val="{{ true }}">
+<span style="display: flex; align-items: center; gap: 10px; width: 100%"><span style="flex: 1; height: 6px; border-radius: 3px; background: #ECEEEB; overflow: hidden"><span style="display: block; height: 6px; border-radius: 3px; width: {{p.barW}}; background: {{p.color}}"></span></span><b style="font-size: 13px; color: {{p.color}}">{{p.pct}}</b><span style="font-size: 12px; color: #5B6763">· {{p.slutLabel}}</span></span>
+</sc-if>
+<sc-if value="{{p.noBar}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #5B6763">{{p.note}}</span></sc-if>
+</button>
+</sc-for>
+</sc-for>
+<sc-if value="{{pg_mprojekt.empty}}" hint-placeholder-val="{{ false }}"><div style="padding: 40px 0; text-align: center; color: #5B6763">Inga uppdrag matchar sökningen.</div></sc-if>
+</main>
+</div>
+
+<sc-if value="{{pg_mprojekt.sheetOn}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; display: flex; flex-direction: column; justify-content: flex-end">
+<button type="button" aria-label="Stäng" onClick="{{pg_mprojekt.close}}" class="sf-fade" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; border: 0; padding: 0; background: rgba(20,32,28,0.45); cursor: default"></button>
+<div role="dialog" aria-modal="true" aria-labelledby="sh-namn" class="sf-sheet" style="position: relative; max-height: 88%; overflow-y: auto; box-sizing: border-box; padding: 10px 18px 34px; border-radius: 28px 28px 0 0; background: #F6F7F5; display: flex; flex-direction: column; gap: 14px">
+<span style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #C9CFC9"></span>
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="display: flex; align-items: center; gap: 8px"><span style="font-size: 13px; font-weight: 700; color: #315046">{{pg_mprojekt.m.nr}}</span><span style="padding: 2px 10px; border-radius: 10px; background: {{pg_mprojekt.m.pillBg}}; color: {{pg_mprojekt.m.pillFg}}; font-size: 12px; font-weight: 700">{{pg_mprojekt.m.status}}</span></span>
+<h2 id="sh-namn" style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 900">{{pg_mprojekt.m.namn}}</h2>
+<span style="font-size: 14px; color: #5B6763">{{pg_mprojekt.m.kund}} · ansvarig {{pg_mprojekt.m.ansv}}</span>
+</div>
+<button type="button" aria-label="Stäng" onClick="{{pg_mprojekt.close}}" style="flex: none; width: 40px; height: 40px; border: 0; border-radius: 20px; background: #FFFFFF; color: #1E2B27; display: inline-flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+<a href="{{pg_mprojekt.m.telHref}}" class="sf-tap" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); color: #1E2B27; text-decoration: none"><span style="width: 36px; height: 36px; flex: none; border-radius: 18px; background: #E3ECE7; color: #315046; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></span><span style="display: flex; flex-direction: column; min-width: 0; font-size: 12px; line-height: 16px; color: #5B6763"><b style="font-size: 14px; line-height: 19px; color: #1E2B27">Ring</b>{{pg_mprojekt.m.kontakt}}</span></a>
+<a href="{{pg_mprojekt.m.mapHref}}" class="sf-tap" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); color: #1E2B27; text-decoration: none"><span style="width: 36px; height: 36px; flex: none; border-radius: 18px; background: #E3ECE7; color: #315046; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span><span style="display: flex; flex-direction: column; min-width: 0; font-size: 12px; line-height: 16px; color: #5B6763"><b style="font-size: 14px; line-height: 19px; color: #1E2B27">Vägbeskrivning</b><span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{pg_mprojekt.m.fast}}</span></span></a>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+<div style="padding: 14px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 700; color: #5B6763">Upparbetat</span><span style="font-size: 24px; line-height: 30px; font-weight: 300; color: {{pg_mprojekt.m.color}}">{{pg_mprojekt.m.done}}</span><span style="font-size: 12px; color: #5B6763">{{pg_mprojekt.m.kalkText}}</span></div>
+<div style="padding: 14px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06); display: flex; flex-direction: column; gap: 2px"><span style="font-size: 12px; font-weight: 700; color: #5B6763">Slutdatum</span><span style="font-size: 24px; line-height: 30px; font-weight: 300">{{pg_mprojekt.m.slut}}</span><span style="font-size: 12px; color: #5B6763">{{pg_mprojekt.m.slutSub}}</span></div>
+</div>
+
+<section style="padding: 14px 16px 6px; background: #FFFFFF; border-radius: 22px; box-shadow: 0 1px 2px rgba(30,43,39,0.04), 0 8px 24px rgba(30,43,39,0.06)">
+<h3 style="margin: 0 0 6px; font-size: 15px; font-weight: 700">Uppgifter</h3>
+<sc-for list="{{pg_mprojekt.m.upp}}" as="u" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 0; border-top: 1px solid #F0F1EE">
+<span style="display: flex; justify-content: space-between; gap: 10px; font-size: 14px"><b>{{u.namn}}</b><span style="color: #5B6763; font-size: 13px">{{u.ansv}}</span></span>
+<span style="display: flex; align-items: center; gap: 10px"><span style="flex: 1; height: 6px; border-radius: 3px; background: #ECEEEB; overflow: hidden"><span style="display: block; height: 6px; border-radius: 3px; width: {{u.barW}}; background: {{u.color}}"></span></span><span style="font-size: 12px; color: {{u.color}}; font-weight: 700; white-space: nowrap">{{u.text}}</span></span>
+</div>
+</sc-for>
+</section>
+
+<sc-if value="{{pg_mprojekt.m.canReport}}" hint-placeholder-val="{{ true }}">
+<a href="P-Mobil-Tid.dc.html" onClick="{{pg_mprojekt.m.report}}" class="sf-tap" style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border-radius: 26px; background: #AE5E38; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Rapportera tid på uppdraget</a>
+</sc-if>
+</div>
+</div>
+</sc-if>
+<nav aria-label="Huvudmeny" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: repeat(3, 1fr); padding: 8px 14px max(env(safe-area-inset-bottom, 0px), 18px); background: rgba(255,255,255,0.96); border-top: 1px solid #E6E9E5; box-shadow: 0 -6px 20px rgba(30,43,39,0.05)">
+<a href="P-Mobil-Hem.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #6B726E; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: transparent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg></span>Hem</a>
+<a href="P-Mobil-Tid.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #6B726E; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: transparent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span style="position: absolute; top: -2px; right: -4px; width: 9px; height: 9px; border-radius: 5px; background: #AE5E38; border: 2px solid #FFFFFF"></span></span>Tid</a>
+<a href="#" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 3px; min-height: 52px; justify-content: center; text-decoration: none; color: #315046; font-size: 12px; font-weight: 700"><span style="position: relative; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 30px; border-radius: 15px; background: #E3ECE7"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg></span>Uppdrag</a>
+</nav>
+<sc-if value="{{pg_mprojekt.toastOn}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 16px; right: 16px; bottom: {{pg_mprojekt.toastBottom}}; z-index: 40; display: flex; justify-content: center; pointer-events: none">
+<div role="status" class="sf-pop" style="pointer-events: auto; display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 18px; border-radius: 20px; background: #1E2B27; color: #FFFFFF; font-size: 14px; box-shadow: 0 12px 30px rgba(20,32,28,0.3)">
+<span>{{pg_mprojekt.toastText}}</span>
+<button type="button" onClick="{{pg_mprojekt.undo}}" style="min-height: 36px; padding: 0 14px; border: 0; border-radius: 18px; background: rgba(255,255,255,0.14); color: #FFFFFF; font: inherit; font-weight: 700; cursor: pointer">Ångra</button>
+</div>
+</div>
+</sc-if>
+</div>
+</div>
+</div>
+
+</sc-if>
+</template>
+<div id="sf-root"></div>
+<script>
+(function () {
+var BOOL = { disabled: 1, checked: 1, hidden: 1, readonly: 1, open: 1, required: 1, multiple: 1, autofocus: 1, selected: 1 };
+var tplFrag = document.getElementById('sf-tpl').content;
+var root = document.getElementById('sf-root');
+var c = null, pend = false, cbs = [];
+function look(scope, path) { return path.split('.').reduce(function (o, k) { return o == null ? undefined : o[k]; }, scope); }
+function holeOnly(v) { var m = /^\{\{\s*([\w.]+)\s*\}\}$/.exec(v); return m ? m[1] : null; }
+function sub(str, scope) { return str.replace(/\{\{\s*([\w.]+)\s*\}\}/g, function (m, k) { var v = look(scope, k); return typeof v === 'function' ? '' : (v == null ? '' : v); }); }
+function evName(el, n) { n = n.slice(2).toLowerCase(); if (n === 'change') { var t = (el.getAttribute('type') || '').toLowerCase(); if (el.tagName !== 'SELECT' && t !== 'checkbox' && t !== 'radio' && t !== 'file') return 'input'; } return n; }
+function proc(node, scope) {
+  var kids = Array.prototype.slice.call(node.childNodes);
+  for (var i = 0; i < kids.length; i++) {
+    var ch = kids[i];
+    if (ch.nodeType === 3) { if (ch.data.indexOf('{{') >= 0) ch.data = sub(ch.data, scope); continue; }
+    if (ch.nodeType !== 1) { ch.remove(); continue; }
+    var tag = ch.tagName.toLowerCase();
+    if (tag === 'sc-if') {
+      var v = look(scope, ch.getAttribute('value').replace(/[{}\s]/g, ''));
+      if (v) { var w = document.createElement('div'); while (ch.firstChild) w.appendChild(ch.firstChild); proc(w, scope); ch.replaceWith.apply(ch, Array.prototype.slice.call(w.childNodes)); } else ch.remove();
+      continue;
+    }
+    if (tag === 'sc-for') {
+      var list = look(scope, ch.getAttribute('list').replace(/[{}\s]/g, '')) || [], as = ch.getAttribute('as'), out = [];
+      for (var j = 0; j < list.length; j++) { var w2 = document.createElement('div'); for (var q = 0; q < ch.childNodes.length; q++) w2.appendChild(ch.childNodes[q].cloneNode(true)); var sc = Object.assign({}, scope); sc[as] = list[j]; if (ch.getAttribute('index')) sc[ch.getAttribute('index')] = j; proc(w2, sc); out.push.apply(out, Array.prototype.slice.call(w2.childNodes)); }
+      ch.replaceWith.apply(ch, out); continue;
+    }
+    var attrs = Array.prototype.slice.call(ch.attributes);
+    for (var a = 0; a < attrs.length; a++) {
+      var at = attrs[a], nm = at.name, val = at.value;
+      if (nm.indexOf('hint-') === 0) { ch.removeAttribute(nm); continue; }
+      if (/^on[a-z]+$/.test(nm)) { var k = holeOnly(val); ch.removeAttribute(nm); if (k) { var fn = look(scope, k); if (typeof fn === 'function') { (ch._on || (ch._on = {}))[evName(ch, nm)] = fn; } } continue; }
+      if (nm === 'style') { ch._st = val.indexOf('{{') >= 0 ? sub(val, scope) : val; ch.removeAttribute('style'); continue; }
+      if (val.indexOf('{{') < 0) continue;
+      var hk = holeOnly(val);
+      if (BOOL[nm] && hk) { var bv = look(scope, hk); if (bv === false || bv === 'false' || bv == null || bv === '' || bv === 0) ch.removeAttribute(nm); else ch.setAttribute(nm, ''); continue; }
+      if (nm.indexOf('sfa-') === 0) { ch.removeAttribute(nm); nm = nm.slice(4); if (nm === 'viewbox') nm = 'viewBox'; }
+      ch.setAttribute(nm, sub(val, scope));
+    }
+    proc(ch, scope);
+  }
+}
+function syncProps(el) {
+  if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+    var t = (el.getAttribute('type') || '').toLowerCase();
+    if (t === 'checkbox' || t === 'radio') el.checked = el.hasAttribute('checked');
+    else if (el.hasAttribute('value') && document.activeElement !== el && el.value !== el.getAttribute('value')) el.value = el.getAttribute('value');
+    else if (el.hasAttribute('value') && document.activeElement === el && el._lastVal !== el.getAttribute('value') && el.value !== el.getAttribute('value')) el.value = el.getAttribute('value');
+    el._lastVal = el.getAttribute('value');
+  }
+  if (el.tagName === 'OPTION') el.selected = el.hasAttribute('selected');
+}
+function materialize(n) {
+  if (n.nodeType !== 1) return n;
+  if (n._st != null) { n.style.cssText = n._st; }
+  n._ra = {}; for (var i = 0; i < n.attributes.length; i++) if (n.attributes[i].name !== 'style') n._ra[n.attributes[i].name] = 1;
+  for (var ch = n.firstChild; ch; ch = ch.nextSibling) materialize(ch);
+  syncProps(n);
+  return n;
+}
+function morphEl(o, n) {
+  var ra = {}, i;
+  for (i = 0; i < n.attributes.length; i++) { var at = n.attributes[i]; ra[at.name] = 1; if (o.getAttribute(at.name) !== at.value) o.setAttribute(at.name, at.value); }
+  var prev = o._ra || {}; for (var k in prev) if (!ra[k] && o.hasAttribute(k)) o.removeAttribute(k);
+  o._ra = ra;
+  var st = n._st == null ? '' : n._st; if (o._st !== st) { o.style.cssText = st; o._st = st; }
+  o._on = n._on;
+  morphKids(o, n);
+  syncProps(o);
+}
+function same(o, n) { return o.nodeType === n.nodeType && (o.nodeType !== 1 || o.tagName === n.tagName); }
+function morphKids(op, np) {
+  var oc = Array.prototype.slice.call(op.childNodes).filter(function (x) { return !x.__sfAdded; }), nc = Array.prototype.slice.call(np.childNodes);
+  for (var i = 0; i < nc.length; i++) {
+    var o = oc[i], n = nc[i];
+    if (!o) { op.appendChild(materialize(n)); continue; }
+    if (!same(o, n)) { op.replaceChild(materialize(n), o); continue; }
+    if (o.nodeType === 3) { if (o.data !== n.data) o.data = n.data; continue; }
+    if (o.nodeType === 1) morphEl(o, n);
+  }
+  for (var j = nc.length; j < oc.length; j++) if (oc[j].parentNode === op) op.removeChild(oc[j]);
+}
+function render() {
+  pend = false;
+  var vals = c.renderVals();
+  var w = document.createElement('div'); w.appendChild(tplFrag.cloneNode(true)); proc(w, vals);
+  w._st = root._st; morphKids(root, w);
+  var q = cbs; cbs = []; q.forEach(function (f) { try { f(); } catch (e) { console.error(e); } });
+}
+function schedule(cb) { if (cb) cbs.push(cb); if (!pend) { pend = true; Promise.resolve().then(render); } }
+['click', 'input', 'change', 'keydown', 'submit', 'focusin', 'focusout', 'mouseover', 'mouseout', 'dblclick'].forEach(function (type) {
+  root.addEventListener(type, function (e) {
+    var key = type === 'focusin' ? 'focus' : type === 'focusout' ? 'blur' : type;
+    for (var el = e.target; el && el !== root; el = el.parentNode) {
+      if (el._on && el._on[key]) { try { el._on[key](e); } catch (er) { console.error(er); } if (e.cancelBubble) break; }
+    }
+  });
+});
+window.DCLogic = function (props) { this.props = props || {}; this.state = {}; };
+window.DCLogic.prototype.setState = function (u, cb) { var n = typeof u === 'function' ? u(this.state, this.props) : u; if (n) this.state = Object.assign({}, this.state, n); schedule(cb); };
+window.__sfBoot = function (C) { c = new C({}); window.__sfApp = c; render(); if (c.componentDidMount) c.componentDidMount(); };
+})();
+
+</script>
+<script>
+class Component extends DCLogic {
+static _classes() {
+class SubLogic {
+constructor(props) { this.props = props || {}; this.state = {}; }
+setState(u, cb) {
+const n = typeof u === 'function' ? u(this.state, this.props) : u;
+if (n) this.state = Object.assign({}, this.state, n);
+if (this._host && !this._dead) this._host._bump();
+if (cb) cb();
+}
+}
+class C_hem extends SubLogic {
+_pl() { try { return JSON.parse(localStorage.getItem('sf-proto') || '{}') || {}; } catch (e) { return {}; } }
+_ps(o) { try { localStorage.setItem('sf-proto', JSON.stringify(Object.assign(this._pl(), o))); } catch (e) {} }
+_tid() { const t = this._pl().tid; return t && t.vals ? t : { vals: { 40: { pl: ['4', '3', '4', '2', '1'], bl: ['3', '4,6', '3,6', '5,6', '4,8'], fb: ['0,6', '', '', '', ''] }, 41: {} }, submitted: { 40: false, 41: false } }; }
+_num(v) { const n = parseFloat(String(v || '').replace(',', '.')); return isNaN(n) ? 0 : n; }
+_dayTot(w) { const t = this._tid(); const v = t.vals[w] || {}; return [0, 1, 2, 3, 4].map((i) => Object.keys(v).reduce((a, k) => a + this._num((v[k] || [])[i]), 0)); }
+constructor(props) {
+super(props);
+this.state = { done: { ms: !!this._pl().msDone }, toast: null };
+}
+componentWillUnmount() { clearTimeout(this.tt); }
+renderVals() {
+const s = this.state;
+if (this._ms !== undefined && this._ms !== !!s.done.ms) this._ps({ msDone: !!s.done.ms });
+this._ms = !!s.done.ms;
+const T = this._tid();
+const d41 = this._dayTot(41), d40 = this._dayTot(40);
+const t41 = d41.reduce((a, b) => a + b, 0), t40 = d40.reduce((a, b) => a + b, 0);
+const f1 = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
+const open = (nr) => () => { try { localStorage.setItem('sf-m-open', nr); } catch (e) {} };
+const all = [
+{ id: 'v40', dot: '#AE5E38', title: 'Skicka in vecka 40', sub: f1(t40) + ' av 38 h rapporterat', href: 'P-Mobil-Tid.dc.html', go: () => { try { localStorage.setItem('sf-m-week', '40'); } catch (e) {} } },
+{ id: 'fb', dot: '#9A2F1F', title: 'Fasadbesiktning 103 %', sub: '26-033 BRF Sjöutsikten · över kalkyl', href: 'P-Mobil-Projekt.dc.html', go: open('26-033') },
+{ id: 'ms', dot: '#AE5E38', title: 'Bygghandling klar', sub: 'Milstolpe passerad 30 sep · 26-038', cta: 'Uppnådd', btn: true },
+{ id: 'kk', dot: '#3D7560', title: 'Kalkyl åt Johan B.', sub: '26-046 Statusbesiktning · BRF Ekbacken', href: 'P-Mobil-Projekt.dc.html', go: open('26-046') }
+];
+const actions = all.filter((a) => !s.done[a.id] && !(a.id === 'v40' && T.submitted[40])).map((a) => ({
+dot: a.dot, title: a.title, sub: a.sub, cta: a.cta || '', href: a.href || '#', go: a.go || (() => {}),
+isLink: !a.btn, isBtn: !!a.btn,
+onDo: () => {
+clearTimeout(this.tt);
+this.setState((st) => ({ done: Object.assign({}, st.done, { [a.id]: true }), toast: { id: a.id, text: 'Milstolpen markerad som uppnådd' } }));
+this.tt = setTimeout(() => this.setState({ toast: null }), 4500);
+}
+}));
+const projekt = [
+{ nr: '26-041', namn: 'Stambyte', kund: 'BRF Lärkträdet', done: 97, kalk: 110, slut: '30 nov' },
+{ nr: '26-033', namn: 'Fasadrenovering', kund: 'BRF Sjöutsikten', done: 59, kalk: 70, slut: '15 okt' },
+{ nr: '26-038', namn: 'Ombyggnad kontor', kund: 'Fastighets AB Norrmälar', done: 148, kalk: 275, slut: '20 dec' }
+].map((p) => {
+const pc = Math.round(p.done / p.kalk * 100);
+return Object.assign({}, p, { pct: pc + ' %', barW: Math.min(100, pc) + '%', color: pc > 100 ? '#9A2F1F' : (pc >= 80 ? '#AE5E38' : '#315046'), go: open(p.nr) });
+});
+const dagar = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre'].map((d, i) => ({
+dag: d, h: d41[i] > 0 ? f1(d41[i]) + ' h' : (i === 0 ? '0 h' : '–'),
+bg: d41[i] >= 7.6 ? 'rgba(255,255,255,0.22)' : (i === 0 ? 'rgba(174,94,56,0.35)' : 'rgba(255,255,255,0.08)'),
+border: d41[i] >= 7.6 ? '1px solid rgba(255,255,255,0.5)' : (i === 0 ? '1px solid #E9A783' : '1px solid transparent')
+}));
+return {
+repTot: f1(t41),
+dagar: dagar,
+actions: actions,
+actCount: actions.length,
+actBadgeBg: actions.length ? '#AE5E38' : '#3D7560',
+noActions: actions.length === 0,
+projekt: projekt,
+toastOn: !!s.toast,
+toastText: s.toast ? s.toast.text : '',
+toastBottom: '104px',
+undo: () => {
+clearTimeout(this.tt);
+this.setState((st) => { const d = Object.assign({}, st.done); if (st.toast) delete d[st.toast.id]; return { done: d, toast: null }; });
+}
+};
+}
+}
+class C_tid extends SubLogic {
+_pl() { try { return JSON.parse(localStorage.getItem('sf-proto') || '{}') || {}; } catch (e) { return {}; } }
+_ps(o) { try { localStorage.setItem('sf-proto', JSON.stringify(Object.assign(this._pl(), o))); } catch (e) {} }
+_tid() { const t = this._pl().tid; return t && t.vals ? t : { vals: { 40: { pl: ['4', '3', '4', '2', '1'], bl: ['3', '4,6', '3,6', '5,6', '4,8'], fb: ['0,6', '', '', '', ''] }, 41: {} }, submitted: { 40: false, 41: false } }; }
+_num(v) { const n = parseFloat(String(v || '').replace(',', '.')); return isNaN(n) ? 0 : n; }
+_dayTot(w) { const t = this._tid(); const v = t.vals[w] || {}; return [0, 1, 2, 3, 4].map((i) => Object.keys(v).reduce((a, k) => a + this._num((v[k] || [])[i]), 0)); }
+constructor(props) {
+super(props);
+const UPP = {
+pl: { namn: 'Projektledning', modell: 'Löpande', kalk: 70, done: 64 },
+lb: { namn: 'Besiktning', modell: 'Fastpris', kalk: 40, done: 33 },
+bl: { namn: 'Byggledning', modell: 'Löpande', kalk: 115, done: 62 },
+pj: { namn: 'Projektledning', modell: 'Löpande', kalk: 160, done: 86 },
+fb: { namn: 'Fasadbesiktning', modell: 'Fastpris', kalk: 40, done: 41 },
+ka: { namn: 'Kontrollansvar', modell: 'Löpande', kalk: 30, done: 18 },
+lk: { namn: 'Kalkyl', modell: 'Fastpris', kalk: 12, done: 4 },
+kk: { namn: 'Kalkyl', modell: 'Fastpris', kalk: 16, done: 0 },
+adm: { namn: 'Administration', modell: 'Ej debiterbart' },
+utb: { namn: 'Utbildning', modell: 'Ej debiterbart' },
+sal: { namn: 'Sälj och offert', modell: 'Ej debiterbart' }
+};
+const PROJ = {
+p41: { short: '041', namn: 'Stambyte', kund: '26-041 · BRF Lärkträdet', upp: ['pl', 'lb'] },
+p38: { short: '038', namn: 'Ombyggnad kontor', kund: '26-038 · Fastighets AB Norrmälar', upp: ['bl', 'pj'] },
+p33: { short: '033', namn: 'Fasadrenovering', kund: '26-033 · BRF Sjöutsikten', upp: ['fb', 'ka'] },
+p45: { short: '045', namn: 'Statusbesiktning', kund: '26-045 · Lindqvist Fastigheter', upp: ['lk'] },
+p46: { short: '046', namn: 'Statusbesiktning', kund: '26-046 · BRF Ekbacken (åt Johan B.)', upp: ['kk'] },
+int: { short: 'INT', namn: 'Intern tid', kund: 'Ej debiterbart', upp: ['adm', 'utb', 'sal'], intern: true }
+};
+const V40 = { '0:pl': 3, '0:bl': 4.6, '1:fb': 4, '1:ka': 2, '1:adm': 1.6, '2:pj': 6, '2:adm': 1.6, '3:pl': 2, '3:lb': 3, '3:bl': 2.6, '4:pj': 4, '4:utb': 1.8 };
+const WEEKS = {
+40: { range: '28 sep – 2 okt', datum: ['28', '29', '30', '1', '2'], full: ['Måndag 28 september', 'Tisdag 29 september', 'Onsdag 30 september', 'Torsdag 1 oktober', 'Fredag 2 oktober'] },
+41: { range: '5 – 9 okt', datum: ['5', '6', '7', '8', '9'], full: ['Måndag 5 oktober', 'Tisdag 6 oktober', 'Onsdag 7 oktober', 'Torsdag 8 oktober', 'Fredag 9 oktober'] }
+};
+this.D = { UPP: UPP, PROJ: PROJ, WEEKS: WEEKS };
+const T = this._tid();
+const toH = (v) => { const o = {}; Object.keys(v || {}).forEach((u) => (v[u] || []).forEach((x, i) => { const n = this._num(x); if (n > 0) o[i + ':' + u] = n; })); return o; };
+this.state = { wk: 41, day: 0, h: { 40: toH(T.vals[40]), 41: toH(T.vals[41]) }, exp: { p41: true }, extra: [], sent: { 40: !!T.submitted[40], 41: !!T.submitted[41] }, toast: null };
+}
+componentDidMount() {
+let st = {};
+try {
+const w = localStorage.getItem('sf-m-week');
+if (w === '40') { st.wk = 40; st.day = 4; localStorage.removeItem('sf-m-week'); }
+const pk = localStorage.getItem('sf-m-tid');
+if (pk && this.D.PROJ[pk]) {
+localStorage.removeItem('sf-m-tid');
+st.exp = { [pk]: true };
+if (pk === 'p46') st.extra = ['p46'];
+}
+} catch (e) {}
+if (Object.keys(st).length) this.setState(st);
+}
+componentWillUnmount() { clearTimeout(this.tt); }
+toast(t) {
+clearTimeout(this.tt);
+this.setState({ toast: t });
+this.tt = setTimeout(() => this.setState({ toast: null }), 4500);
+}
+renderVals() {
+const s = this.state;
+const _sig = JSON.stringify([s.h, s.sent]);
+if (this._sig !== undefined && this._sig !== _sig) {
+const toV = (h) => { const o = {}; Object.keys(h || {}).forEach((k) => { const p = k.split(':'); const i = +p[0]; if (!o[p[1]]) o[p[1]] = ['', '', '', '', '']; o[p[1]][i] = String(h[k]).replace('.', ','); }); return o; };
+this._ps({ tid: { vals: { 40: toV(s.h[40]), 41: toV(s.h[41]) }, submitted: { 40: !!s.sent[40], 41: !!s.sent[41] } } });
+}
+this._sig = _sig;
+const UPP = this.D.UPP, PROJ = this.D.PROJ, WEEKS = this.D.WEEKS;
+const fmt = (n) => String(Math.round(n * 10) / 10).replace('.', ',');
+const H = s.h[s.wk];
+const locked = s.sent[s.wk];
+const dayTot = (d) => Object.keys(H).filter((k) => k.indexOf(d + ':') === 0).reduce((a, k) => a + H[k], 0);
+const weekTot = [0, 1, 2, 3, 4].reduce((a, d) => a + dayTot(d), 0);
+const W = WEEKS[s.wk];
+const isToday = (d) => s.wk === 41 && d === 0;
+const passed = (d) => s.wk === 40 || d === 0;
+const days = ['Mån', 'Tis', 'Ons', 'Tor', 'Fre'].map((dag, d) => {
+const t = dayTot(d);
+const sel = d === s.day;
+const full = t >= 7.6;
+const miss = passed(d) && !full;
+return {
+dag: dag, datum: W.datum[d], h: t > 0 ? fmt(t) : (passed(d) ? '0' : '–'),
+sel: sel ? 'true' : 'false',
+bg: sel ? '#315046' : '#FFFFFF',
+fg: sel ? '#FFFFFF' : '#1E2B27',
+hColor: sel ? (miss ? '#F2B9A1' : '#CFE0D7') : (full ? '#315046' : (miss ? '#AE5E38' : '#8A938F')),
+border: isToday(d) && !sel ? '2px solid #AE5E38' : '2px solid transparent',
+pick: () => this.setState({ day: d })
+};
+});
+const dt = dayTot(s.day);
+const setH = (key, v) => this.setState((st) => {
+const wk = Object.assign({}, st.h[st.wk]);
+if (v <= 0) delete wk[key]; else wk[key] = v;
+return { h: Object.assign({}, st.h, { [st.wk]: wk }) };
+});
+const thisWeekFor = (u) => Object.keys(s.h[41]).filter((k) => k.split(':')[1] === u).reduce((a, k) => a + s.h[41][k], 0);
+const keys = ['p41', 'p38', 'p33', 'p45'].concat(s.extra).concat(['int']);
+const projects = keys.map((k) => {
+const P = PROJ[k];
+const expanded = !!s.exp[k];
+const ph = P.upp.reduce((a, u) => a + (H[s.day + ':' + u] || 0), 0);
+return {
+short: P.short, namn: P.namn, kund: P.kund,
+chipBg: P.intern ? '#ECEEEB' : '#E3ECE7', chipFg: P.intern ? '#5B6763' : '#315046',
+dayH: fmt(ph) + ' h',
+hBg: ph > 0 ? '#E3ECE7' : '#F3F4F2', hFg: ph > 0 ? '#24403A' : '#8A938F',
+exp: expanded ? 'true' : 'false', expanded: expanded, rot: expanded ? '180deg' : '0deg',
+toggle: () => this.setState((st) => ({ exp: Object.assign({}, st.exp, { [k]: !st.exp[k] }) })),
+upp: P.upp.map((u) => {
+const U = UPP[u];
+const key = s.day + ':' + u;
+const v = H[key] || 0;
+let kText = '', kColor = '#5B6763';
+if (U.kalk) {
+const d = U.done + thisWeekFor(u);
+const pc = d / U.kalk * 100;
+kText = fmt(d) + ' av ' + U.kalk + ' h kalkyl';
+kColor = pc > 100 ? '#9A2F1F' : (pc >= 80 ? '#AE5E38' : '#3D7560');
+}
+return {
+namn: U.namn, modell: U.modell, kText: kText, kColor: kColor,
+val: fmt(v) + ' h', valColor: v > 0 ? '#1E2B27' : '#8A938F',
+open: !locked, locked: locked,
+minusLabel: 'Minska ' + U.namn + ' med en halvtimme', plusLabel: 'Öka ' + U.namn + ' med en halvtimme',
+minus: () => setH(key, Math.max(0, v - 0.5)),
+plus: () => setH(key, v + 0.5)
+};
+})
+};
+});
+const prevDay = s.day > 0 ? s.day - 1 : -1;
+const prevTot = prevDay >= 0 ? dayTot(prevDay) : 0;
+const st = locked ? ['Inskickad', '#E3ECE7', '#24403A'] : (s.wk === 40 ? ['Ej inskickad', '#F3E2D8', '#7A3A1C'] : ['Pågår', '#ECEEEB', '#33403C']);
+return {
+stLabel: st[0], stBg: st[1], stFg: st[2],
+weekLabel: 'Vecka\u00a0' + s.wk,
+weekRange: W.range,
+wkBg: s.wk === 41 ? '#315046' : '#ECEEEB', wkFg: s.wk === 41 ? '#FFFFFF' : '#33403C',
+prevColor: s.wk === 40 ? '#C9CFC9' : '#1E2B27', nextColor: s.wk === 41 ? '#C9CFC9' : '#1E2B27',
+prevWeek: () => this.setState((x) => x.wk === 41 ? { wk: 40, day: 0 } : {}),
+nextWeek: () => this.setState((x) => x.wk === 40 ? { wk: 41, day: 0 } : {}),
+days: days,
+dayTitle: W.full[s.day],
+dayTotal: fmt(dt) + ' h',
+dayBarW: Math.min(100, dt / 7.6 * 100) + '%',
+dayColor: dt >= 7.6 ? '#315046' : '#AE5E38',
+showCopy: !locked && dt === 0 && prevTot > 0,
+copyLabel: 'Kopiera från ' + (prevDay >= 0 ? ['måndag', 'tisdag', 'onsdag', 'torsdag'][prevDay] : '') + ' (' + fmt(prevTot) + ' h)',
+copyPrev: () => this.setState((x) => {
+const wk = Object.assign({}, x.h[x.wk]);
+Object.keys(wk).filter((k) => k.indexOf((x.day - 1) + ':') === 0).forEach((k) => { wk[x.day + ':' + k.split(':')[1]] = wk[k]; });
+return { h: Object.assign({}, x.h, { [x.wk]: wk }) };
+}),
+projects: projects,
+canAdd: s.extra.indexOf('p46') === -1,
+addProj: () => this.setState((x) => ({ extra: ['p46'], exp: Object.assign({}, x.exp, { p46: true }) })),
+weekTotal: fmt(weekTot) + ' h',
+subLabel: locked ? 'Inskickad' : 'Skicka in',
+subBg: locked ? '#E3ECE7' : '#AE5E38',
+subFg: locked ? '#24403A' : '#FFFFFF',
+onSubmit: () => {
+if (locked) return;
+const w = s.wk;
+this.setState((x) => ({ sent: Object.assign({}, x.sent, { [w]: true }) }));
+this.toast({ text: 'Vecka ' + w + ' inskickad', wk: w });
+},
+toastOn: !!s.toast,
+toastText: s.toast ? s.toast.text : '',
+toastBottom: '170px',
+undo: () => {
+clearTimeout(this.tt);
+this.setState((x) => ({ sent: x.toast ? Object.assign({}, x.sent, { [x.toast.wk]: false }) : x.sent, toast: null }));
+}
+};
+}
+}
+class C_mprojekt extends SubLogic {
+_pl() { try { return JSON.parse(localStorage.getItem('sf-proto') || '{}') || {}; } catch (e) { return {}; } }
+_ps(o) { try { localStorage.setItem('sf-proto', JSON.stringify(Object.assign(this._pl(), o))); } catch (e) {} }
+_tid() { const t = this._pl().tid; return t && t.vals ? t : { vals: { 40: { pl: ['4', '3', '4', '2', '1'], bl: ['3', '4,6', '3,6', '5,6', '4,8'], fb: ['0,6', '', '', '', ''] }, 41: {} }, submitted: { 40: false, 41: false } }; }
+_num(v) { const n = parseFloat(String(v || '').replace(',', '.')); return isNaN(n) ? 0 : n; }
+_dayTot(w) { const t = this._tid(); const v = t.vals[w] || {}; return [0, 1, 2, 3, 4].map((i) => Object.keys(v).reduce((a, k) => a + this._num((v[k] || [])[i]), 0)); }
+constructor(props) {
+super(props);
+this.P = [
+{ nr: '26-041', namn: 'Stambyte', kund: 'BRF Lärkträdet', ort: 'Solna', fast: 'Lärkträdet 4, Solna', status: 'Pågående', ansv: 'Anna L.', slut: '30 nov', slutSub: 'om 8 veckor', kontakt: 'Lars Berg', tel: '070-337 81 25', tid: 'p41', upp: [['Projektledning', 'Anna L.', 64, 70], ['Besiktning', 'Anna L.', 33, 40]] },
+{ nr: '26-033', namn: 'Fasadrenovering', kund: 'BRF Sjöutsikten', ort: 'Nacka', fast: 'Sjövägen 2–8, Nacka', status: 'Pågående', ansv: 'Anna L.', slut: '15 okt', slutSub: 'om 10 dagar', kontakt: 'Eva Nyström', tel: '072-118 64 09', tid: 'p33', upp: [['Fasadbesiktning', 'Anna L.', 41, 40], ['Kontrollansvar', 'Anna L.', 18, 30]] },
+{ nr: '26-038', namn: 'Ombyggnad kontor', kund: 'Fastighets AB Norrmälar', ort: 'Stockholm', fast: 'Kv. Tornet 7, Stockholm', status: 'Pågående', ansv: 'Anna L.', slut: '20 dec', slutSub: 'om 11 veckor', kontakt: 'Karin Ström', tel: '070-412 33 18', tid: 'p38', upp: [['Byggledning', 'Anna L.', 62, 115], ['Projektledning', 'Anna L.', 86, 160]] },
+{ nr: '26-042', namn: 'Takbyte', kund: 'Fastighets AB Norrmälar', ort: 'Stockholm', fast: 'Kv. Hamnen 2, Stockholm', status: 'Pågående', ansv: 'Sara M.', slut: '12 dec', slutSub: 'om 10 veckor', kontakt: 'Karin Ström', tel: '070-412 33 18', upp: [['Projektledning', 'Sara M.', 85, 120]] },
+{ nr: '26-039', namn: 'Energibesiktning', kund: 'BRF Ekbacken', ort: 'Bromma', fast: 'Ekbacksvägen 10, Bromma', status: 'Pågående', ansv: 'Johan B.', slut: '23 okt', slutSub: 'om 18 dagar', kontakt: 'Johan Ahl', tel: '070-690 27 73', upp: [['Energibesiktning', 'Johan B.', 12, 30]] },
+{ nr: '26-045', namn: 'Statusbesiktning', kund: 'Lindqvist Fastigheter', ort: 'Sundbyberg', fast: 'Rosengatan 12, Sundbyberg', status: 'Kalkyl', ansv: 'Anna L.', slut: '—', slutSub: 'sätts vid beställning', kontakt: 'Per Lindqvist', tel: '070-554 10 92', tid: 'p45', note: 'Kalkyl pågår · 4 av 12 h', upp: [['Kalkyl', 'Anna L.', 4, 12]] },
+{ nr: '26-046', namn: 'Statusbesiktning', kund: 'BRF Ekbacken', ort: 'Bromma', fast: 'Ekbacksvägen 12, Bromma', status: 'Kalkyl', ansv: 'Johan B.', slut: '—', slutSub: 'sätts vid beställning', kontakt: 'Johan Ahl', tel: '070-690 27 73', tid: 'p46', note: 'Kalkyl åt Johan B. · ej påbörjad', upp: [['Kalkyl', 'Anna L.', 0, 16]] },
+{ nr: '26-047', namn: 'Underhållsplan', kund: 'Täby Hyreshus AB', ort: 'Täby', fast: 'Kv. Linden 3, Täby', status: 'Offererad', ansv: 'Anna L.', slut: '—', slutSub: 'väntar på beställning', kontakt: 'Sofia Ek', tel: '076-203 45 61', note: 'Offert skickad 28 sep', upp: [['Underhållsplan', 'Anna L.', 0, 80]] },
+{ nr: '26-030', namn: 'Hyresgästanpassning', kund: 'Kontorsfastigheter Väst AB', ort: 'Solna', fast: 'Kv. Smeden 4, Solna', status: 'Vilande', ansv: 'Sara M.', slut: 'Pausad', slutSub: 'sedan 14 sep', kontakt: 'Mats Holm', tel: '073-981 22 40', note: 'Vilande sedan 14 sep', upp: [['Projektledning', 'Sara M.', 20, 90]] }
+];
+this.state = { scope: 'mina', q: '', open: null };
+}
+componentDidMount() {
+try {
+const nr = localStorage.getItem('sf-m-open');
+if (nr) {
+localStorage.removeItem('sf-m-open');
+const p = this.P.find((x) => x.nr === nr);
+if (p) this.setState({ open: nr, scope: (p.ansv === 'Anna L.' || p.mine) ? 'mina' : 'alla' });
+}
+} catch (e) {}
+}
+renderVals() {
+const s = this.state;
+const pills = { 'Pågående': ['#E3ECE7', '#24403A'], 'Kalkyl': ['#F3E2D8', '#7A3A1C'], 'Offererad': ['#ECEAE4', '#4B4740'], 'Vilande': ['#ECEEEB', '#5B6763'] };
+const colorOf = (pc) => pc > 100 ? '#9A2F1F' : (pc >= 80 ? '#AE5E38' : '#315046');
+const mine = (p) => p.ansv === 'Anna L.' || !!p.mine;
+const q = s.q.trim().toLowerCase();
+const shape = (p) => {
+const done = p.upp.reduce((a, u) => a + u[2], 0);
+const kalk = p.upp.reduce((a, u) => a + u[3], 0);
+const pc = Math.round(done / kalk * 100);
+const bar = p.status === 'Pågående' || p.status === 'Vilande';
+return Object.assign({}, p, {
+pillBg: pills[p.status][0], pillFg: pills[p.status][1],
+hasBar: p.status === 'Pågående', noBar: p.status !== 'Pågående',
+pct: pc + ' %', barW: Math.min(100, pc) + '%', color: colorOf(pc),
+slutLabel: 'slut ' + p.slut, note: p.note || '',
+open: () => this.setState({ open: p.nr })
+});
+};
+const list = this.P.filter((p) => (s.scope === 'alla' || mine(p)) && (!q || (p.nr + ' ' + p.namn + ' ' + p.kund + ' ' + p.fast).toLowerCase().includes(q))).map(shape);
+const groups = [
+{ label: 'Pågående', items: list.filter((p) => p.status === 'Pågående') },
+{ label: 'Kalkyl och offert', items: list.filter((p) => p.status === 'Kalkyl' || p.status === 'Offererad') },
+{ label: 'Vilande', items: list.filter((p) => p.status === 'Vilande') }
+].filter((g) => g.items.length);
+const raw = this.P.find((p) => p.nr === s.open);
+let m = { nr: '', namn: '', kund: '', ansv: '', status: '', pillBg: '#FFF', pillFg: '#000', telHref: '#', mapHref: '#', kontakt: '', fast: '', done: '', kalkText: '', color: '#315046', slut: '', slutSub: '', upp: [], canReport: false, report: () => {} };
+if (raw) {
+const done = raw.upp.reduce((a, u) => a + u[2], 0);
+const kalk = raw.upp.reduce((a, u) => a + u[3], 0);
+const pc = Math.round(done / kalk * 100);
+m = Object.assign({}, raw, {
+pillBg: pills[raw.status][0], pillFg: pills[raw.status][1],
+telHref: 'tel:' + raw.tel.replace(/[^0-9+]/g, ''),
+mapHref: 'https://maps.google.com/?q=' + encodeURIComponent(raw.fast),
+done: done + ' h', kalkText: 'av ' + kalk + ' h kalkyl · ' + pc + ' %', color: colorOf(pc),
+upp: raw.upp.map((u) => { const p2 = Math.round(u[2] / u[3] * 100); return { namn: u[0], ansv: u[1], text: u[2] + ' av ' + u[3] + ' h', barW: Math.min(100, p2) + '%', color: colorOf(p2) }; }),
+canReport: !!raw.tid,
+report: () => { try { localStorage.setItem('sf-m-tid', raw.tid); } catch (e) {} }
+});
+}
+const on = '#FFFFFF', sh = '0 1px 2px rgba(30,43,39,0.08), 0 4px 10px rgba(30,43,39,0.06)';
+return {
+minaSel: s.scope === 'mina' ? 'true' : 'false', allaSel: s.scope === 'alla' ? 'true' : 'false',
+minaBg: s.scope === 'mina' ? on : 'transparent', allaBg: s.scope === 'alla' ? on : 'transparent',
+minaSh: s.scope === 'mina' ? sh : 'none', allaSh: s.scope === 'alla' ? sh : 'none',
+minaCount: this.P.filter(mine).length, allaCount: this.P.length,
+pickMina: () => this.setState({ scope: 'mina' }), pickAlla: () => this.setState({ scope: 'alla' }),
+q: s.q, onSearch: (e) => this.setState({ q: e.target.value }),
+groups: groups, empty: groups.length === 0,
+sheetOn: !!raw, m: m,
+close: () => this.setState({ open: null }),
+toastOn: false, toastText: '', toastBottom: '104px', undo: () => {}
+};
+}
+}
+return { hem: C_hem, tid: C_tid, mprojekt: C_mprojekt };
+}
+constructor(props) {
+super(props);
+this.C = Component._classes();
+this.MAPK = { 'P-Mobil-Hem.dc.html': 'hem', 'P-Mobil-Tid.dc.html': 'tid', 'P-Mobil-Projekt.dc.html': 'mprojekt' };
+this.state = { page: 'hem', tick: 0 };
+this.sub = this._make('hem');
+}
+_make(k) { const i = new this.C[k](this.props); i._host = this; return i; }
+_bump() { this.setState((s) => ({ tick: s.tick + 1 })); }
+go(k) {
+if (!this.C[k]) return;
+const old = this.sub;
+if (old) { old._dead = true; try { if (old.componentWillUnmount) old.componentWillUnmount(); } catch (e) {} }
+this.sub = this._make(k);
+this.setState({ page: k, tick: this.state.tick + 1 });
+try { window.scrollTo(0, 0); } catch (e) {}
+const s = this.sub;
+setTimeout(() => { try { if (s.componentDidMount && !s._dead) s.componentDidMount(); } catch (e) {} }, 0);
+}
+componentDidMount() {
+this._click = (e) => {
+const a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+if (!a) return;
+const k = this.MAPK[a.getAttribute('href')];
+if (!k) return;
+e.preventDefault();
+setTimeout(() => this.go(k), 0);
+};
+try { document.addEventListener('click', this._click, true); } catch (e) {}
+const s = this.sub;
+setTimeout(() => { try { if (s.componentDidMount) s.componentDidMount(); } catch (e) {} }, 0);
+}
+componentWillUnmount() {
+try { document.removeEventListener('click', this._click, true); } catch (e) {}
+if (this.sub) { this.sub._dead = true; try { if (this.sub.componentWillUnmount) this.sub.componentWillUnmount(); } catch (e) {} }
+}
+renderVals() {
+const p = this.state.page;
+const v = this.sub.renderVals();
+const out = {};
+out.is_hem = p === 'hem'; out.pg_hem = p === 'hem' ? v : {};
+out.is_tid = p === 'tid'; out.pg_tid = p === 'tid' ? v : {};
+out.is_mprojekt = p === 'mprojekt'; out.pg_mprojekt = p === 'mprojekt' ? v : {};
+return out;
+}
+}
+
+;window.__sfBoot(Component);
+</script>
+</body></html>
